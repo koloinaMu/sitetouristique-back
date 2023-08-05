@@ -1,0 +1,16 @@
+<html>
+ <body>
+  Ajouter un nouveau site touristique
+  <form method="post" action="/upload">
+    <input type="text" name="p1">
+    <input type="submit" value="post">
+  </form>
+  <form action="/upload" method="post" enctype="multipart/form-data">
+    <input type="text" placeholder="Nom" name="nom"><br>
+    <input type="textarea" placeholder="Description" name="description"><br>
+    <input type="textarea" placeholder="Region" name="region"><br>
+    <input type="file" name="file" multiple ><br>
+    <input type="submit" value="post">
+  </form>
+ </body>
+</html>
