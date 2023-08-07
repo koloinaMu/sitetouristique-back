@@ -87,6 +87,15 @@ router.get('/randomSite',(req,res)=>{
         .catch(error => res.status(400).json({ error }));
 })
 
+router.get('/sites/:nom',function(req,res) {
+    const nom=req.params.nom;
+    var query={  $or: [ { nom: {$regex: nom, $options: 'i'} }, 
+    { description: {$regex: nom, $options: 'i'}}  ] }
+    Site.find(query)
+            .then(site => res.status(200).json(site))
+            .catch(error => res.status(400).json({ error }));
+});
+
 router.post('/firebase',  (req, res)=>{
     //console.log(req)   
        
