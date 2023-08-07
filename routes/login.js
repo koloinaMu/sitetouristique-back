@@ -9,7 +9,7 @@ router.post('/login', (req, res) => {
     let data = req.body;
     //console.log(data);
     //console.log(data.mail);
-    mail=data.user.mail;
+    mail=data.mail;
     var res1=String(mail)
     .toLowerCase()
     .match(/^[a-zA-Z0-9.]+@[a-zA-Z0-9]+.[a-zA-Z0-9]+$/);
@@ -17,7 +17,7 @@ router.post('/login', (req, res) => {
     var erreur=[];
     if(res1!=null){
         //console.log(erreur.erreur)
-        mdp=md5(data.user.mdp);
+        mdp=md5(data.mdp);
         /*Token.findOne({token:data.token})
             .then(token=>{
                 if(token==null){

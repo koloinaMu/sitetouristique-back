@@ -7,4 +7,4 @@ const thingSchema = mongoose.Schema({
   mdp: { type: String, required: true },
 });
 
-module.exports = mongoose.model('Utilisateur', thingSchema);
+module.exports = mongoose.model('utilisateur', thingSchema);

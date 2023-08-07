@@ -7,17 +7,20 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 var mongo = require('mongodb');
 const uri =
-"mongodb://127.0.0.1:27017/sitetouristique";
+//"mongodb://127.0.0.1:27017/sitetouristique";
+"mongodb+srv://Koloina:Kokoloina.2422@cluster0.6vrux.mongodb.net/?retryWrites=true&w=majority";
 var md5=require("md5");
 
 const app = express()
-const port = 3000
+const port = process.env.PORT || 3000 
 
 const dbConfig = require("./config/db");
+const Site=require('./models/site')
 const url=dbConfig.url + dbConfig.database
+const mongooseUrl="mongodb+srv://Koloina:Kokoloina.2422@cluster0.6vrux.mongodb.net/sitetouristique?retryWrites=true&w=majority"
 //mongoose.connect('mongodb://0.0.0.0:27017/sitetouristique?retryWrites=true&w=majority',
 //mongoose.connect('mongodb+srv://Koloina:Kokoloina.2422@cluster0.6vrux.mongodb.net/?retryWrites=true&w=majority',
-mongoose.connect(url,
+mongoose.connect(mongooseUrl,
   { useNewUrlParser: true,
     useUnifiedTopology: true })
   .then(() => console.log('Connexion à MongoDB réussie !'))
@@ -27,6 +30,7 @@ const loginRouter=require('./routes/login')
 const sitesRouter=require('./routes/site')
 //const homeController = require("./controllers/home");
 const uploadController = require("./controllers/upload");
+const utilisateur = require("./models/utilisateur");
 
 
 app.use(bodyParser.json())
@@ -60,11 +64,18 @@ app.get('/sites',function(req,res) {
 	MongoClient.connect(uri,function (err,db) {
 		if(err) throw err;
 		var dbo=db.db("sitetouristique");
-		dbo.collection("sites").find({}).toArray(function (err,ress) {
+		dbo.collection("sites").find({}).toArray(function (err,ress) {			
 			db.close();
 			res.send(ress);
 		})
 	})
+});
+
+app.get('/sitesMongoose',function(req,res) {
+	//console.log(mongoose)
+	Site.find({  })
+            .then(site => res.status(200).json(site))
+            .catch(error => res.status(400).json({ error }));
 });
 
 

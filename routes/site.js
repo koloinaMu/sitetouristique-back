@@ -89,13 +89,13 @@ router.get('/randomSite',(req,res)=>{
 
 router.post('/firebase',  (req, res)=>{
     //console.log(req)   
-
-    //console.log(req.body.token)        
+       
     var registrationToken="egN32YgtRyKjUJaZ-Zrqs9:APA91bEoX9MGS952TeHJyqKhpaL_jUz1-2TJx1LH-yN47_M1iI6qIlMfqXTyJkW0OPOh9AzTnH8uVf4MevgOWXRrihMgGV8UTXXo5oK0BjQoVW5DpLAtjRcme16WgFZXamVU4C0BxdMI";
     
     registrationToken=req.body.token;
     Site.aggregate([{$sample: {size: 1}}])
     .then(site =>{
+        console.log(site)
         const data={
             id:site[0]._id.toString(),
             nom:site[0].nom,
@@ -103,7 +103,6 @@ router.post('/firebase',  (req, res)=>{
             region:site[0].region
         }
         var donnees=JSON.stringify(data)
-        //console.log(donnees)
         donnees={ data:donnees}
         const message = {        
             notification: {            
@@ -122,7 +121,7 @@ router.post('/firebase',  (req, res)=>{
             res.status(200).send("Notification sent successfully")
         
         }).catch(error=>{
-            //console.log(error)
+            console.log(error)
             res.status(400).json({ error })
         })
     })
