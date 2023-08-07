@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const Media=require('./media');
 
 const siteSchema = mongoose.Schema( { 
+    _id:String,
     nom: String,
     description: String,
     region: String,
